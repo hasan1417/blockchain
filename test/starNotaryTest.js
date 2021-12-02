@@ -1,35 +1,18 @@
-const starNotary = artifacts.require("StarNotary");
+const starNotary = artifacts.require('starNotary');
 
-contract('StarNotary', accounts => {
-    let defaultAccount = accounts[0];
-    let instantiateContract
+contract('starNotary', accounts => {
 
-    beforeEach(async ()=>{
+    beforeEach(async function () {
 
-        instantiateContract = await starNotary.new({from: defaultAccount});
+        this.contract = await starNotary.new({ from: accounts[0] });
     })
 
     describe('can create a star', () => {
-        it('can create a star and get its name', async () => {
-            assert.equal(await instantiateContract.starName(), 'Awesome Udacity Star');
-        })
 
-        it('can create a star and claim it', async () => {
-            assert.equal(await instantiateContract.starOwner(), 0);
-            await instantiateContract.claimStar({from: defaultAccount});
-            assert.equal(await instantiateContract.starOwner(), defaultAccount);
-        }
-    )})
+        it('can create a star and get its name', async function () {
 
-    describe('Star can change owners', () =>{
-        beforeEach(async ()=>{
-            assert.equal(await instantiateContract.starOwner(), 0);
-            await instantiateContract.claimStar({from: defaultAccount});
-        })
+            await this.contract.createStar('Shooting Star',1, {from: accounts[0]});
 
-        it('can change owner', async () => {
-            await instantiateContract.claimStar({from: accounts[1]});
-            assert.equal(await instantiateContract.starOwner(), accounts[1]);
-        })
+            assert.equal(await this.contract.tokenIdToStarInfo(1), 'Shooting Star')
     })
-})
+})})
