@@ -1,6 +1,6 @@
 pragma solidity ^0.8.10;
 
-import './ERC721Token.sol';
+import 'node_modules\@openzeppelin\contracts\token\ERC721\ERC721.sol';
 
 contract StarNotary is ERC721Token { 
 
