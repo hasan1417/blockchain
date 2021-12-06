@@ -84,6 +84,17 @@ contract ERC721Token is ERC721 {
         emit Transfer(_from, _to, _tokenId);
     }
 
+        function transferFromHelper(address _from, address _to, uint256 _tokenId) internal { 
+
+        tokenToOwner[_tokenId] = _to;
+
+        tokenToOwner[_tokenId] = _to;
+        ownerToBalance[_to] += 1;
+        ownerToBalance[_from] -= 1;
+
+        emit Transfer(_from, _to, _tokenId);
+    }
+
     /// @notice Change or reaffirm the approved address for an NFT
     /// @dev The zero address indicates there is no approved address.
     ///  Throws unless `msg.sender` is the current NFT owner, or an authorized
